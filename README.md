@@ -6,4 +6,4 @@ It also will include / includes usages of early access builds including features
 
 I may also add some reference here in the future to using JDK Mission Control (JMC) and its latest releases, but I'm not sure yet.
 
-Find the latest ready for use, early access and reference implementation all the way back to SE 7 [here](jdk.java.net).
+Find the latest ready for use, early access and reference implementation all the way back to SE 7 [here](https://jdk.java.net).
