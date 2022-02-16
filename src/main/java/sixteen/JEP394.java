@@ -1,20 +1,35 @@
 package sixteen;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * JEP 394: Pattern Matching for instanceof - Introduce pattern matching for the instance of operator. This is now a finalized feature of the language.
  */
 public class JEP394 {
 
-    @AllArgsConstructor
-    @Getter
-    @Setter
     private static class Animal {
         private String name;
         private int age;
+
+        public Animal(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
     }
 
     private static class Cat extends Animal {
