@@ -1,8 +1,10 @@
 package loom.prerequisites;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -27,7 +29,7 @@ public class ListLoggingRecursiveAction extends RecursiveAction {
     protected void compute() {
         // divide up into subtasks each with a sublist of the original if exceeds threshold
         if(list.size() > LIST_LENGTH_THRESHOLD)
-            divideIntoSubtasks();
+            ForkJoinTask.invokeAll(divideIntoSubtasksRecursively());
         else
             processTask();
 
@@ -35,7 +37,7 @@ public class ListLoggingRecursiveAction extends RecursiveAction {
 
     /**
      * This method defines a way to split up a task into subtasks that will return a List<ListLoggingRecursiveAction> which will
-     * be called by ForkJoinPool.invokeAll()
+     * be called by ForkJoinTask.invokeAll()
      *
      * Rather than using logic like the .divideIntoSubtasks() method below to create a specific amount of subtasks, let's just split the list in two, and let each instance deal with continued task dividing if it needs to.
      */
@@ -74,6 +76,6 @@ public class ListLoggingRecursiveAction extends RecursiveAction {
      */
     private void processTask() {
         // log list contents
-        list.forEach(string -> System.out.printf("ListLoggingRecursiveAction[%s] says %s.%n", name, string));
+        System.out.printf("ListLoggingRecursiveAction[%s] says %s.%n", name, list);
     }
 }

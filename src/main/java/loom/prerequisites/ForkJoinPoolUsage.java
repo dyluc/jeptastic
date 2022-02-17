@@ -1,5 +1,7 @@
 package loom.prerequisites;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -26,7 +28,7 @@ public class ForkJoinPoolUsage {
      * empty. This workflow means larger workload chunks can be prioritised, there will be fewer threads competing for the same task, and a reduced number of times a thread goes looking for work.
      *
      */
-    public ForkJoinPoolUsage() {
+    public static void ForkJoinPoolUsage() {
 
         // convenience method to instantiate a ForkJoinPool, getting access to the statically constructed common pool. Alternatively,
         // a static instance can be created using the constructor to accomplish the same thing.
@@ -35,7 +37,24 @@ public class ForkJoinPoolUsage {
         // ForkJoinTasks<V> is the base type for tasks executed by the ForkJoinPool. This base class has 2 implementations; RecursiveAction (void task), and RecursiveTask<V> (task that returns a value)
         // One of these two subclasses should be extended depending on the nature of the task to be completed.
 
+        // Submitting a RecursiveTask:
+        // .execute() or .submit() will push the task to the work queue to be worked on later.
+        int[] array = {4, 25, 8, 65, 24, 53, 45, 85};
+        System.out.println(Arrays.toString(array));
+        ListSummingRecursiveTask baseListSummingRecursiveTask = new ListSummingRecursiveTask("Base ListSummingRecursiveTask", array);
+        pool.execute(baseListSummingRecursiveTask);
+        int sum = baseListSummingRecursiveTask.join(); // same method called inside class to obtain the result of the operation
 
+        // .invoke() will execute the task and join the result (does same thing as above)
+//        sum = pool.invoke(baseListSummingRecursiveTask);
+
+        System.out.println("Result of the operation is " + sum);
+
+        // The same can be accomplished with RecursiveAction, except it doesn't return a result:
+        List<String> list = List.of("The", "Quick", "Brown", "Fox", "Jumped", "Over", "The", "Lazy", "Dog");
+        System.out.println(list);
+        ListLoggingRecursiveAction baseListLoggingRecursiveAction = new ListLoggingRecursiveAction("Base ListLoggingRecursiveAction", list);
+        pool.invoke(baseListLoggingRecursiveAction);
 
     }
 }

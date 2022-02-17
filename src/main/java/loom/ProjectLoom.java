@@ -1,9 +1,6 @@
 package loom;
 
-import loom.prerequisites.ListLoggingRecursiveAction;
-
-import java.util.ArrayList;
-import java.util.List;
+import loom.prerequisites.ForkJoinPoolUsage;
 
 public class ProjectLoom {
 
@@ -22,8 +19,7 @@ public class ProjectLoom {
      *
      */
     public ProjectLoom() {
-
-
+        ForkJoinPoolUsage.ForkJoinPoolUsage();
     }
 
     public static void main(String[] args) {
